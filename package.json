@@ -1,6 +1,6 @@
 {
-  "name": "goit-react-hw-07-phonebook",
-  "homepage": "https://zmennn.github.io/goit-react-hw-07-phonebook",
+  "name": "goit-react-hw-08-phonebook",
+  
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -22,9 +22,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "prepare": "husky install",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "prepare": "husky install"
+    
   },
   "eslintConfig": {
     "extends": [
@@ -46,7 +45,7 @@
   },
   "devDependencies": {
     "eslint": "^7.11.0",
-    "gh-pages": "^3.2.3",
+    
     "husky": "^7.0.2",
     "lint-staged": "^11.2.3",
     "prettier": "^2.4.1",

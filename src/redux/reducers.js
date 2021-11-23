@@ -1,5 +1,4 @@
 import { v4 as uuidv4 } from 'uuid';
-// import { combineReducers } from 'redux';
 import { createReducer } from '@reduxjs/toolkit';
 import { submitRecord, changeFilter, deleteRecord } from './actions';
 

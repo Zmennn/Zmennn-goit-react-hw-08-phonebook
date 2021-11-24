@@ -1,6 +1,12 @@
 import { createReducer, combineReducers } from '@reduxjs/toolkit';
-import { changeFilter } from './actions';
-import { fetchPhones, deleteById, submitPhone } from './operation';
+import { changeFilter, getUserRegistration } from './actions';
+import {
+  fetchPhones,
+  deleteById,
+  submitPhone,
+  fetchSubmitUser,
+} from './operation';
+import { createSlice } from '@reduxjs/toolkit';
 
 export function filterRecord(state = {}, action) {
   return { ...state, filter: action.payload };
@@ -37,6 +43,23 @@ const isSubmit = createReducer(false, {
   [submitPhone.fulfilled]: () => true,
 });
 
+const userData = createReducer(
+  {},
+  {
+    [fetchSubmitUser.fulfilled]: (state = {}, action) => ({
+      ...state,
+      userData: action.payload.data.user,
+    }),
+  },
+);
+
+const token = createReducer('', {
+  [fetchSubmitUser.fulfilled]: (state = {}, action) => ({
+    ...state,
+    token: action.payload.data.token,
+  }),
+});
+
 export const reducer = combineReducers({
   contacts,
   isLoading,
@@ -44,4 +67,6 @@ export const reducer = combineReducers({
   filter,
   isDelete,
   isSubmit,
+  userData,
+  token,
 });

@@ -18,7 +18,7 @@ function ContactsList() {
 
 
   const phones = () => dispatch(fetchPhones());
-  useEffect(() => { phones() }, []);
+  useEffect(() => { phones() }, []); 
   useEffect(() => { if (isDelete) { phones() } }, [isDelete]);
   useEffect(() => { if (isSubmit) { phones() } }, [isSubmit]);
   

@@ -1,36 +1,45 @@
 import style from './style.module.css';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { getUserRegistration } from '../../redux/actions';
+import {fetchSubmitUser} from '../../redux/operation'
 
 export function Registration() {
-    const [login, setLogin] = useState();
+    const [name, setName] = useState();
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
     const dispatch = useDispatch();
 
   const handleChangeAllInput = (ev) => {
-       
-    if (ev.target.name === "login") {
-      setLogin(ev.target.value)
-    } else if (ev.target.name === "email") {
-      setEmail(ev.target.value)
-    } else if (ev.target.name === "password") {
-        setPassword(ev.target.value)
+
+    switch (ev.target.name) {
+        case "name":
+          setName(ev.target.value)  
+            break;
+        case "email":
+            setEmail(ev.target.value)
+            break;
+        case "password":
+            setPassword(ev.target.value)
+            break;
+    
+        default: alert("WTF ???")
+            break;
     }
-    };
-    
-  const  submitUser=(params)=>{
-      console.log("reg");
-  }  
-    
+};
+
+
+
+  const submitUser = () => dispatch(fetchSubmitUser({name,email,password}));  
+
 
     return (
         <form
             className={style.form}
             onSubmit={(e) => {
                 e.preventDefault();
-                submitUser([login,email,password]);       
-                setLogin("");
+                submitUser({ name, email, password });
+                setName("");
                 setEmail("");
                 setPassword("");
             }}
@@ -41,14 +50,14 @@ export function Registration() {
                 <input
                     id="inputName"
                     type="text"
-                    name="login"
+                    name="name"
                     className={style.input}
                     pattern="\w{4,16}"
                     title="Логин может состоять из лат. букв или цифр от 4 до 16 символов"
                     placeholder="Лат. буквы или цифры 4-16 символов"
                     required
                     onChange={handleChangeAllInput}
-                    value={login}
+                    value={name}
                 />
              </label>
              <label className={style.label}>Email

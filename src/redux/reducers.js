@@ -1,6 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import { createReducer } from '@reduxjs/toolkit';
 import { submitRecord, changeFilter, deleteRecord } from './actions';
+import { combineReducers } from 'redux';
 
 function delRecord(state = {}, action) {
   const data = state.contacts.filter(elem => elem.id !== action.payload);

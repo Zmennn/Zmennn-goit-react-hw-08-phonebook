@@ -4,31 +4,31 @@ import style from './style.module.css';
 export function AppBar() {
     
     return (
-    <section className={style.container}>
+    <header className={style.container}>
         <div className={style.innerContainerLeft}>
-            <NavLink
+            {/* <NavLink
                 className={style.firstText}
-                activeClassName={style.active}
+                // activeStyle={{ backgroundColor: '#88e' }}
                 to="/">Home
-            </NavLink>
+            </NavLink> */}
             <NavLink
                     className={style.secondText}
-                    activeClassName={style.active}
+                    // activeStyle={{ backgroundColor: '#88e' }}
                     to="/contacts">Phonebook
             </NavLink>
         </div>
         <div className={style.innerContainerRight}>
                 <NavLink
                     className={style.firstText}
-                    activeClassName={style.active}
+                    // activeStyle={{ color: '#88e' }}
                     to="/register">Registration
                 </NavLink>
                 <NavLink
                     className={style.secondText}
-                    activeClassName={style.active}
+                    // activeStyle={{ backgroundColor: '#88e' }}
                     to="/login">Login
                 </NavLink>
         </div>
-    </section>  
+    </header>  
     )
 }

@@ -1,12 +1,14 @@
 import { createReducer, combineReducers } from '@reduxjs/toolkit';
-import { changeFilter, getUserRegistration } from './actions';
+import { changeFilter } from './actions';
 import {
   fetchPhones,
   deleteById,
   submitPhone,
   fetchSubmitUser,
+  fetchLogin,
+  fetchCurrentUser,
+  fetchLogout,
 } from './operation';
-import { createSlice } from '@reduxjs/toolkit';
 
 export function filterRecord(state = {}, action) {
   return { ...state, filter: action.payload };
@@ -46,18 +48,32 @@ const isSubmit = createReducer(false, {
 const userData = createReducer(
   {},
   {
-    [fetchSubmitUser.fulfilled]: (state = {}, action) => ({
-      ...state,
-      userData: action.payload.data.user,
-    }),
+    [fetchSubmitUser.fulfilled]: (_, action) => action.payload.data.user,
+    [fetchLogin.fulfilled]: (_, action) => action.payload.data.user,
+    [fetchCurrentUser.fulfilled]: (_, action) => action.payload.data,
+    [fetchLogout.fulfilled]: () => ({ name: '', email: '' }),
   },
 );
 
 const token = createReducer('', {
-  [fetchSubmitUser.fulfilled]: (state = {}, action) => ({
-    ...state,
-    token: action.payload.data.token,
-  }),
+  [fetchSubmitUser.fulfilled]: (state = {}, action) =>
+    action.payload.data.token,
+  [fetchLogin.fulfilled]: (state = {}, action) => {
+    localStorage.setItem('token', action.payload.data.token);
+    return action.payload.data.token;
+  },
+  [fetchCurrentUser.fulfilled]: () => localStorage.getItem('token'),
+  [fetchLogout.fulfilled]: () => {
+    localStorage.removeItem('token');
+    return '';
+  },
+});
+
+const isAuth = createReducer(false, {
+  [fetchSubmitUser.fulfilled]: () => true,
+  [fetchLogin.fulfilled]: () => true,
+  [fetchCurrentUser.fulfilled]: () => true,
+  [fetchLogout.fulfilled]: () => false,
 });
 
 export const reducer = combineReducers({
@@ -69,4 +85,7 @@ export const reducer = combineReducers({
   isSubmit,
   userData,
   token,
+  isAuth,
 });
+
+// localStorage.setItem(action.payload.data.token, token);

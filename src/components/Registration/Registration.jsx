@@ -1,13 +1,12 @@
 import style from './style.module.css';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { getUserRegistration } from '../../redux/actions';
-import {fetchSubmitUser} from '../../redux/operation'
+import { fetchSubmitUser } from '../../redux/operation';
 
 export function Registration() {
-    const [name, setName] = useState();
-    const [email, setEmail] = useState();
-    const [password, setPassword] = useState();
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
     const dispatch = useDispatch();
 
   const handleChangeAllInput = (ev) => {
@@ -78,9 +77,9 @@ export function Registration() {
                     type="password"
                     name="password"
                     className={style.input}
-                    pattern="\w{4,16}"
-                    title="Пароль может состоять из лат. букв или цифр от 4 до 16 символов"
-                    placeholder="Лат. буквы или цифры 4-16 символов"
+                    pattern="\w{7,16}"
+                    title="Пароль может состоять из лат. букв или цифр от 7 до 16 символов"
+                    placeholder="Лат. буквы или цифры 7-16 символов"
                     required
                     onChange={handleChangeAllInput}
                     value={password}

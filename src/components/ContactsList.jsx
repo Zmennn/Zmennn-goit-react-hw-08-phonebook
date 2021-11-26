@@ -10,14 +10,15 @@ function ContactsList() {
   const contacts = useSelector(state => state.contacts);
   const filter = useSelector(state => state.filter);
   const isDelete = useSelector((state) => state.isDelete);
-  const isSubmit=useSelector((state)=>state.isSubmit)
+  const isSubmit = useSelector((state) => state.isSubmit);
+  const token = useSelector((state) => state.token);
 
   const dispatch = useDispatch();
   const del = id => dispatch(deleteById(id));
   
 
 
-  const phones = () => dispatch(fetchPhones());
+  const phones = () => dispatch(fetchPhones(token));
   useEffect(() => { phones() }, []); 
   useEffect(() => { if (isDelete) { phones() } }, [isDelete]);
   useEffect(() => { if (isSubmit) { phones() } }, [isSubmit]);

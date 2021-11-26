@@ -7,10 +7,14 @@ const userRegister = '/users/signup';
 const userLogin = '/users/login';
 const userCurrent = '/users/current';
 const userLogout = '/users/logout';
-// BASE_USER_URL = `https://connections-api.herokuapp.com`;
+const contacts = '/contacts';
 
-export const fetchPhones = createAsyncThunk('phones/fetchList', async () => {
-  const phones = await axios.get(url);
+export const fetchPhones = createAsyncThunk('phones/fetchList', async data => {
+  const phones = await axios.get(contacts, {
+    'Content-Type': 'application/json',
+    headers: { Authorization: data },
+  });
+
   return phones.data;
 });
 
@@ -20,14 +24,47 @@ export const deleteById = createAsyncThunk('phones/delete', async ev => {
   return;
 });
 
-export const submitPhone = createAsyncThunk('phones/submit', async data => {
-  await axios.post(url, data);
-  return;
-});
+export const submitPhone = createAsyncThunk(
+  'phones/submit',
+  async ({ data, token }) => {
+    console.log(data, token);
+    await axios({
+      method: 'post',
+      headers: { Authorization: token },
+      url: userLogout,
+      data: data,
+    });
+    return;
+  },
+);
 
 export const fetchSubmitUser = createAsyncThunk('user/submit', async data => {
   const request = await axios.post(userRegister, data, {
     'Content-Type': 'application/json',
+  });
+  return request;
+});
+
+export const fetchLogin = createAsyncThunk('user/login', async data => {
+  const request = await axios.post(userLogin, data, {
+    'Content-Type': 'application/json',
+  });
+  return request;
+});
+
+export const fetchCurrentUser = createAsyncThunk('user/current', async data => {
+  const request = await axios.get(userCurrent, {
+    'Content-Type': 'application/json',
+    headers: { Authorization: data },
+  });
+  return request;
+});
+
+export const fetchLogout = createAsyncThunk('user/logout', async data => {
+  const request = await axios({
+    method: 'post',
+    headers: { Authorization: data },
+    url: userLogout,
   });
   return request;
 });

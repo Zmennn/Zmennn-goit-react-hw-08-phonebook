@@ -1,34 +1,31 @@
 import { NavLink } from "react-router-dom";
 import style from './style.module.css';
+import { useSelector } from 'react-redux';
+import { Navigation } from './Navigation';
+import { Greetings } from './Greetings';
+// import { Navigate } from "react-router-dom";
+// import { useEffect } from "react";
 
 export function AppBar() {
+
+    const isAuth = useSelector(state => state.isAuth);
+
     
+// useEffect(()=>{if(isAuth){console.log("object");<Navigate to="/contacts"/>}},[isAuth])
+
     return (
     <header className={style.container}>
         <div className={style.innerContainerLeft}>
-            {/* <NavLink
-                className={style.firstText}
-                // activeStyle={{ backgroundColor: '#88e' }}
-                to="/">Home
-            </NavLink> */}
+            
             <NavLink
-                    className={style.secondText}
-                    // activeStyle={{ backgroundColor: '#88e' }}
+                    className={style.secondText}                   
                     to="/contacts">Phonebook
             </NavLink>
         </div>
-        <div className={style.innerContainerRight}>
-                <NavLink
-                    className={style.firstText}
-                    // activeStyle={{ color: '#88e' }}
-                    to="/register">Registration
-                </NavLink>
-                <NavLink
-                    className={style.secondText}
-                    // activeStyle={{ backgroundColor: '#88e' }}
-                    to="/login">Login
-                </NavLink>
-        </div>
+            
+     {isAuth?<Greetings/>:<Navigation/>}
+
+            
     </header>  
     )
 }

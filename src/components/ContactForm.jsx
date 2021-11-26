@@ -17,6 +17,7 @@ export default function ContactForm() {
   const [number, setNumber] = useState("");
   
   const contacts = useSelector(state => state.contacts);
+  const token = useSelector(state => state.token);
 
   const handleChangeAllInput = (ev) => {
        
@@ -28,15 +29,18 @@ export default function ContactForm() {
   };
 
   const dispatch = useDispatch();
-  const addPhone = (data) => dispatch(submitPhone(data));
+  const addPhone = (data,token) => dispatch(submitPhone(data,token));
 
 
   function add(data) {
+    console.log(data, token);
   if (!contacts.find(el => el.name === data[0])) {
     
     addPhone({
-      name: data[0],
-      phone:data[1]
+      data: {
+        name: data[0],
+        number: data[1]
+      }, token
     })
     
   } else {

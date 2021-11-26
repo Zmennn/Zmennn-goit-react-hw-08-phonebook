@@ -31,7 +31,7 @@ export const submitPhone = createAsyncThunk(
     await axios({
       method: 'post',
       headers: { Authorization: token },
-      url: userLogout,
+      url: contacts,
       data: data,
     });
     return;

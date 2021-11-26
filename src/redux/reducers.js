@@ -10,9 +10,13 @@ import {
   fetchLogout,
 } from './operation';
 
-export function filterRecord(state = {}, action) {
-  return { ...state, filter: action.payload };
-}
+// export function filterRecord(state = {}, action) {
+//   return { ...state, filter: action.payload };
+// }
+const filterRecord = createReducer('', {
+  [changeFilter]: (_, action) => action.payload,
+  [fetchLogout.fulfilled]: () => '',
+});
 
 const contacts = createReducer([], {
   [fetchPhones.fulfilled]: (state, action) => action.payload,

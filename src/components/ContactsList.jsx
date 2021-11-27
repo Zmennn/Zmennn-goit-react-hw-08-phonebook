@@ -18,7 +18,7 @@ function ContactsList() {
   const del = (ev) => deleteNum(ev.target.id, token);
   
 
-  // const phones = () => dispatch(fetchPhones(token));
+  
   const phones =useCallback(() => dispatch(fetchPhones(token)),[token,dispatch])
 
 

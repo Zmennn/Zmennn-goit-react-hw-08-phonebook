@@ -1,4 +1,5 @@
 import { createReducer, combineReducers } from '@reduxjs/toolkit';
+
 import { changeFilter } from './actions';
 import {
   fetchPhones,
@@ -91,7 +92,9 @@ const token = createReducer('', {
 
 const isAuth = createReducer(false, {
   [fetchSubmitUser.fulfilled]: () => true,
-  [fetchLogin.fulfilled]: () => true,
+  [fetchLogin.fulfilled]: () => {
+    return true;
+  },
   [fetchCurrentUser.fulfilled]: () => true,
   [fetchLogout.fulfilled]: () => false,
 });

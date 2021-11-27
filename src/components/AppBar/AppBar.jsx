@@ -3,17 +3,14 @@ import style from './style.module.css';
 import { useSelector } from 'react-redux';
 import { Navigation } from './Navigation';
 import { Greetings } from './Greetings';
-// import { Navigate } from "react-router-dom";
-// import { useEffect } from "react";
+
 
 export function AppBar() {
 
     const isAuth = useSelector(state => state.isAuth);
 
-    
-// useEffect(()=>{if(isAuth){console.log("object");<Navigate to="/contacts"/>}},[isAuth])
 
-    return (
+    return (<>
     <header className={style.container}>
         <div className={style.innerContainerLeft}>
             
@@ -26,6 +23,7 @@ export function AppBar() {
      {isAuth?<Greetings/>:<Navigation/>}
 
             
-    </header>  
-    )
+        </header>
+        
+   </> )
 }

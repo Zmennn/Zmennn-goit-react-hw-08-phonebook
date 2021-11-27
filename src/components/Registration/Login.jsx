@@ -1,11 +1,17 @@
 import style from './style.module.css';
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import {fetchLogin} from '../../redux/operation'
+import React, {  useState } from 'react';
+import { useDispatch,useSelector } from 'react-redux';
+import { fetchLogin } from '../../redux/operation';
+import { Navigate } from "react-router-dom";
 
 export function Login() {
+
     const [login, setLogin] = useState("");
-    const [password, setPassword] = useState("");
+  const [password, setPassword] = useState("");
+  
+  const isAuth = useSelector((state => state.isAuth));
+  
+
     const dispatch = useDispatch();
     const loginUser =(data)=> dispatch(fetchLogin(data));
 
@@ -17,7 +23,7 @@ export function Login() {
     }
     };
     
-     return (
+     return (<>
          <form
              className={style.form}
               onSubmit={(e) => {
@@ -61,6 +67,10 @@ export function Login() {
                 className={style.button}
                 type="submit"
                 >Send</button>
-        </form>
-    )
+       </form>
+       
+{ isAuth && <Navigate to="/contacts" /> }
+
+
+  </>  )
 }

@@ -44,7 +44,7 @@ function ContactsList() {
                     filteredContacts().map(el => (<li
                         className={style.listItem}
                         key={el.id} >
-                        {el.name}:  {el.phone}
+                        {el.name}:  {el.number}
                         <button
                             type="button"
                             className={style.deleteButton}

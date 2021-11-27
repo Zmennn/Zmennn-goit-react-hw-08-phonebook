@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import style from './ContactsList.module.css';
 import {  useDispatch, useSelector } from 'react-redux';
 import { fetchPhones,deleteById } from '../redux/operation';
@@ -18,10 +18,13 @@ function ContactsList() {
   const del = (ev) => deleteNum(ev.target.id, token);
   
 
-  const phones = () => dispatch(fetchPhones(token));
-  useEffect(() => { phones() }, []); 
-  useEffect(() => { if (isDelete) { phones() } }, [isDelete]);
-  useEffect(() => { if (isSubmit) { phones() } }, [isSubmit]);
+  // const phones = () => dispatch(fetchPhones(token));
+  const phones =useCallback(() => dispatch(fetchPhones(token)),[token,dispatch])
+
+
+  useEffect(() => { phones() }, [phones]); 
+  useEffect(() => { if (isDelete) { phones() } }, [isDelete,phones]);
+  useEffect(() => { if (isSubmit) { phones() } }, [isSubmit,phones]);
   
   
     function filteredContacts() {

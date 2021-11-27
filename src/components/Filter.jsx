@@ -8,7 +8,9 @@ export default function Filter() {
 
     const dispatch = useDispatch();
     const filter = (data) => dispatch(changeFilter(data));
-    const filterData = (ev) =>  filter(ev.target.value.toLowerCase()) ;
+    const filterData = (ev) => filter(ev.target.value.toLowerCase());
+    
+
      return (<>
             <label htmlFor="find">Find contacts by name</label>
             <input

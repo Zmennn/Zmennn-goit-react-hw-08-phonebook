@@ -1,7 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const url = '/contacts';
 axios.defaults.baseURL = `https://connections-api.herokuapp.com`;
 const userRegister = '/users/signup';
 const userLogin = '/users/login';
@@ -14,20 +13,23 @@ export const fetchPhones = createAsyncThunk('phones/fetchList', async data => {
     'Content-Type': 'application/json',
     headers: { Authorization: data },
   });
-
   return phones.data;
 });
 
-export const deleteById = createAsyncThunk('phones/delete', async ev => {
-  const id = ev.target.id;
-  await axios.delete(`${url}/${id}`);
-  return;
-});
+export const deleteById = createAsyncThunk(
+  'phones/delete',
+  async ({ id, token }) => {
+    await axios({
+      method: 'delete',
+      headers: { Authorization: token },
+      url: `${contacts}/${id}`,
+    });
+  },
+);
 
 export const submitPhone = createAsyncThunk(
   'phones/submit',
   async ({ data, token }) => {
-    console.log(data, token);
     await axios({
       method: 'post',
       headers: { Authorization: token },

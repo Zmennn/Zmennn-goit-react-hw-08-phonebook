@@ -14,9 +14,9 @@ function ContactsList() {
   const token = useSelector((state) => state.token);
 
   const dispatch = useDispatch();
-  const del = id => dispatch(deleteById(id));
+  const deleteNum = (id, token) => dispatch(deleteById({ id:id, token:token } ));
+  const del = (ev) => deleteNum(ev.target.id, token);
   
-
 
   const phones = () => dispatch(fetchPhones(token));
   useEffect(() => { phones() }, []); 
@@ -34,8 +34,7 @@ function ContactsList() {
       }
       return false;
     });
-  }
-    
+  }   
         return (
             <ul className={style.list}>        
                 {

@@ -9,15 +9,27 @@ import { PhonePage } from './pages/PhonePage.jsx';
 import { fetchCurrentUser } from './redux/operation';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
+import Loader from 'react-loader-spinner';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function App() {
   const dispatch = useDispatch();
+  const isLoading = useSelector(state => state.isLoading);
+  const isError = useSelector(state => state.error);
 
   useEffect(() => {
     if (localStorage.getItem('token')) {
       dispatch(fetchCurrentUser(localStorage.getItem('token')));
     }
   }, []);
+
+  useEffect(() => {
+    if (isError) {
+      toast('something went wrong, please try again later');
+    }
+  }, [isError]);
 
   return (
     <>
@@ -38,6 +50,11 @@ export default function App() {
           />
         </Routes>
       </main>
+      {isLoading && (
+        <Loader type="Puff" color="#00BFFF" height={150} width={150} />
+      )}
+
+      <ToastContainer />
     </>
   );
 }

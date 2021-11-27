@@ -10,10 +10,7 @@ import {
   fetchLogout,
 } from './operation';
 
-// export function filterRecord(state = {}, action) {
-//   return { ...state, filter: action.payload };
-// }
-const filterRecord = createReducer('', {
+const filter = createReducer('', {
   [changeFilter]: (_, action) => action.payload,
   [fetchLogout.fulfilled]: () => '',
 });
@@ -28,15 +25,34 @@ const isLoading = createReducer(false, {
   [fetchPhones.pending]: () => true,
 });
 
-const error = createReducer(false, {
+const error = createReducer(null, {
   [fetchPhones.fulfilled]: () => false,
+  [fetchPhones.pending]: () => false,
   [fetchPhones.rejected]: () => true,
-  [deleteById.reject]: () => true,
-  [deleteById.fulfilled]: () => false,
-});
 
-const filter = createReducer('', {
-  [changeFilter]: (_, action) => action.payload,
+  [deleteById.fulfilled]: () => false,
+  [deleteById.pending]: () => false,
+  [deleteById.rejected]: () => true,
+
+  [fetchLogin.pending]: () => false,
+  [fetchLogin.fulfilled]: () => false,
+  [fetchLogin.rejected]: () => true,
+
+  [fetchLogout.fulfilled]: () => false,
+  [fetchLogout.pending]: () => false,
+  [fetchLogout.rejected]: () => true,
+
+  [fetchCurrentUser.fulfilled]: () => false,
+  [fetchCurrentUser.pending]: () => false,
+  [fetchCurrentUser.rejected]: () => true,
+
+  [submitPhone.fulfilled]: () => false,
+  [submitPhone.pending]: () => false,
+  [submitPhone.rejected]: () => true,
+
+  [fetchSubmitUser.fulfilled]: () => false,
+  [fetchSubmitUser.pending]: () => false,
+  [fetchSubmitUser.rejected]: () => true,
 });
 
 const isDelete = createReducer(false, {
@@ -91,5 +107,3 @@ export const reducer = combineReducers({
   token,
   isAuth,
 });
-
-// localStorage.setItem(action.payload.data.token, token);

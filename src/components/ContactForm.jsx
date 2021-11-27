@@ -33,7 +33,7 @@ export default function ContactForm() {
 
 
   function add(data) {
-    console.log(data, token);
+    
   if (!contacts.find(el => el.name === data[0])) {
     
     addPhone({
